@@ -11,7 +11,10 @@ sudo apt install -y \
     bat \
     curl \
     git \
-    stow
+    stow \
+    zoxide \
+    fzf \
+    xclip
 
 # 2. Instalación de Docker
 sudo apt remove -y $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
