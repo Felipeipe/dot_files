@@ -154,20 +154,16 @@ function update() {
     echo "Error in the installation"
 }
 
-function rossource {
-    source /opt/ros/jazzy/setup.zsh
+
+function dexec() {
+    docker exec -it $1 bash 
 }
 
+function dbender {
+    dexec bender_core
 
-function tf_vwr {
-    ros2 run tf2_tools view_frames -o frames && \\
-    firefox frames.pdf &&
-    rm frames.pdf frames.gv
 }
 
-function rm_comp_files {
-    rm -rf build install log
-}
 
 function ghtoken {
     gpg -d ~/Documents/gh_token.txt.gpg | clip
@@ -178,10 +174,11 @@ function pvenv {
 }
 function cumpile {
     make -j$(nproc)
-    cp encoder_cpp.uf2 /media/${USER}/RPI-RP2
+    cp encoder_cpp.uf2 /run/media/${USER}/RPI-RP2
 }
 function weigth {
     du -bhd 1
 }
+
 export PATH=$HOME/.local/bin:$PATH
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
