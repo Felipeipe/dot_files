@@ -13,7 +13,8 @@ sudo apt install -y \
     stow \
     zoxide \
     fzf \
-    xclip
+    xclip \
+    tree
 
 sudo apt remove -y $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
 

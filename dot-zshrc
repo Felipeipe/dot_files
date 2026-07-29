@@ -164,6 +164,17 @@ function dbender {
 
 }
 
+function status {
+
+    find . -name .git -type d -prune | while read -r gitdir; do
+        repo=$(dirname "$gitdir")
+        echo "========================================"
+        echo "📁 Repositorio: $repo"
+        echo "========================================"
+        git -C "$repo" status -s
+        echo ""
+    done
+}
 
 function ghtoken {
     gpg -d ~/Documents/gh_token.txt.gpg | clip
@@ -172,11 +183,13 @@ function ghtoken {
 function pvenv {
     source venv/bin/activate
 }
+
 function cumpile {
     make -j$(nproc)
     cp encoder_cpp.uf2 /run/media/${USER}/RPI-RP2
 }
-function weigth {
+
+function weight {
     du -bhd 1
 }
 
