@@ -1,12 +1,8 @@
-// Zed settings
-//
-// For information on how to configure Zed, see the Zed
-// documentation: https://zed.dev/docs/configuring-zed
-//
-// To see all of Zed's default settings without changing your
-// custom settings, run `zed: open default settings` from the
-// command palette (cmd-shift-p / ctrl-shift-p)
 {
+    "feature_flags": {
+        "notebooks": "on",
+        "tabular-data-preview": "on"
+      },
   "session": {
     "trust_all_worktrees": true
   },
@@ -22,11 +18,6 @@
   "collaboration_panel": {
     "dock": "left"
   },
-  "agent": {
-    "dock": "right",
-    "favorite_models": [],
-    "model_parameters": []
-  },
   "git_panel": {
     "dock": "left"
   },
@@ -34,6 +25,7 @@
   "format_on_save": "off",
   "disable_ai": true,
   "vim_mode": true,
+  "tab_size": 4,
   "base_keymap": "VSCode",
   "relative_line_numbers": "enabled",
   "gutter": {
@@ -57,6 +49,16 @@
       "*.tex"
     ]
   },
+  "languages": {
+    "C++": {
+      "tab_size": 4,
+      "hard_tabs": false
+    },
+    "C": {
+      "tab_size": 4,
+      "hard_tabs": false
+    }
+  },
   "soft_wrap": "editor_width",
   "icon_theme": {
     "mode": "dark",
@@ -72,9 +74,9 @@
   },
   "theme_overrides": {
     "High Contrast Ayu": {
-          "border": "#333333",
-          "border.variant": "#222222",
-        }
+      "border": "#333333",
+      "border.variant": "#222222"
+    }
   },
   "lsp": {
     "texlab": {

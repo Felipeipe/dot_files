@@ -116,6 +116,7 @@ alias clip='xclip -sel clip'
 alias zsource='source ~/.zshrc'
 
 export COMPOSE_BAKE=true
+export LOCAL_NOTEBOOK_DEV=1
 eval "$(zoxide init --cmd cd zsh)"
 
 if [[ "$(which python3)" != "/usr/bin/python3" ]]; then
