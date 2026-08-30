@@ -105,15 +105,7 @@ fi
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="mate ~/.zshrc"
-alias ohmyzsh="mate ~/.oh-my-zsh"
-alias c='clear'
-alias bat='batcat'
-alias sis='source install/setup.zsh && rossource'
-alias sl='ls'
-alias dokcer='docker'
-alias clip='xclip -sel clip'
-alias zsource='source ~/.zshrc'
+
 
 export COMPOSE_BAKE=true
 export LOCAL_NOTEBOOK_DEV=1
@@ -124,75 +116,8 @@ if [[ "$(which python3)" != "/usr/bin/python3" ]]; then
     deactivate
   fi
 fi
-
-function update() {
-    UPDATE_DRIVERS=false
-
-    while getopts "d" opt; do
-        case ${opt} in
-            d )
-                UPDATE_DRIVERS=true
-                ;;
-            \? )
-                echo "Usage: update [-d]"
-                return 1
-                ;;
-        esac
-    done
-
-    sudo apt update -y &&\
-    sudo apt upgrade -y 
-
-    if [ "$UPDATE_DRIVERS" ]; then
-	echo "Nvidia drivers will be updated"
-        sudo ubuntu-drivers install
-    fi
-
-    sudo apt autoremove -y &&\
-    omz update &&\
-    sudo snap refresh &&\
-    echo "System updated correctly!" || \
-    echo "Error in the installation"
-}
-
-
-function dexec() {
-    docker exec -it $1 bash 
-}
-
-function dbender {
-    dexec bender_core
-
-}
-
-function status {
-
-    find . -name .git -type d -prune | while read -r gitdir; do
-        repo=$(dirname "$gitdir")
-        echo "========================================"
-        echo "📁 Repositorio: $repo"
-        echo "========================================"
-        git -C "$repo" status -s
-        echo ""
-    done
-}
-
-function ghtoken {
-    gpg -d ~/Documents/gh_token.txt.gpg | clip
-}
-
-function pvenv {
-    source venv/bin/activate
-}
-
-function cumpile {
-    make -j$(nproc)
-    cp encoder_cpp.uf2 /run/media/${USER}/RPI-RP2
-}
-
-function weight {
-    du -bhd 1
-}
-
 export PATH=$HOME/.local/bin:$PATH
 export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
+
+# aliases and functions. it's used as is if this repo is used on a path without zsh installed.
+source ~/.bash_aliases
