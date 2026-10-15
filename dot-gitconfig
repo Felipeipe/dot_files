@@ -1,0 +1,9 @@
+[user]
+	name = Felipe González
+	email = gonzalezpobletefelipe@gmail.com
+[init]
+	defaultBranch = main
+[core]
+	pager = bat --theme Dracula --style=plain
+[pager]
+	diff = bat --paging never --pager none --theme Dracula --style=plain --language diff
