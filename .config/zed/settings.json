@@ -1,4 +1,26 @@
 {
+    "telemetry": {
+        "diagnostics": false,
+        "metrics": false,
+        "anthropic_retention": false
+    },
+    "agent_servers": {
+        "claude-acp": {
+            "default_config_options": {
+                "effort": "high",
+                "model": "opus"
+            },
+            "type": "registry"
+        }
+    },
+    "agent": {
+        "dock": "right",
+        "threads_sidebar": {
+            "position": "right"
+        },
+        "favorite_models": [],
+        "model_parameters": []
+    },
     "feature_flags": {
         "notebooks": "on",
         "tabular-data-preview": "on"
@@ -7,7 +29,7 @@
     "trust_all_worktrees": true
   },
   "buffer_line_height": "comfortable",
-  "buffer_font_family": ".ZedMono",
+  "buffer_font_family": "IBM Plex Mono",
   "cli_default_open_behavior": "new_window",
   "project_panel": {
     "dock": "left"
@@ -23,7 +45,7 @@
   },
   "remove_trailing_whitespace_on_save": true,
   "format_on_save": "off",
-  "disable_ai": true,
+  "disable_ai": false,
   "vim_mode": true,
   "tab_size": 4,
   "base_keymap": "VSCode",

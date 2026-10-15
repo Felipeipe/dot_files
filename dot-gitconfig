@@ -3,7 +3,16 @@
 	email = gonzalezpobletefelipe@gmail.com
 [init]
 	defaultBranch = main
+
 [core]
-	pager = bat --theme Dracula --style=plain
-[pager]
-	diff = bat --paging never --pager none --theme Dracula --style=plain --language diff
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+
+[merge]
+    conflictStyle = zdiff3
