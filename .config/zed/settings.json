@@ -1,4 +1,21 @@
 {
+    "ssh_connections": [
+        {
+            "host": "bender-raspi.local",
+            "username": "bender",
+            "args": [
+                "-X"
+            ],
+            "projects": [
+                {
+                    "paths": [
+                        "/home/bender/uchile_robotics"
+                    ]
+                }
+            ],
+            "nickname": "bender_w_X11"
+        }
+    ],
     "telemetry": {
         "diagnostics": false,
         "metrics": false,
@@ -7,6 +24,7 @@
     "agent_servers": {
         "claude-acp": {
             "default_config_options": {
+                "mode": "default",
                 "effort": "high",
                 "model": "opus"
             },
@@ -14,6 +32,8 @@
         }
     },
     "agent": {
+        "thinking_display": "always_expanded",
+        "enable_feedback": false,
         "dock": "right",
         "threads_sidebar": {
             "position": "right"
@@ -59,7 +79,8 @@
   "file_types": {
     "xml": [
       "*.sdf",
-      "*.xacro"
+      "*.xacro",
+      "*.world"
     ],
     "yaml": [
       "*.repos"
