@@ -1,0 +1,78 @@
+{
+    "behavior_pytrees": {
+        "prefix": [
+            "behavior"
+        ],
+        "body": [
+            "class ${1:MyBehaviour}(py_trees.behaviour.Behaviour):",
+            "    def __init__(self, name: str = \"${2:$1}\"):",
+            "        super().__init__(name=name)",
+            "",
+            "    def setup(self, **kwargs) -> None:",
+            "        self.logger.debug(f\"{self.__class__.__name__}.setup()\")",
+            "        ${3:pass}",
+            "",
+            "    def initialise(self) -> None:",
+            "        self.logger.debug(f\"{self.__class__.__name__}.initialise()\")",
+            "        ${4:pass}",
+            "",
+            "    def update(self) -> py_trees.common.Status:",
+            "        self.logger.debug(f\"{self.__class__.__name__}.update()\")",
+            "        ${0:return py_trees.common.Status.SUCCESS}",
+            "",
+            "    def terminate(self, new_status: py_trees.common.Status) -> None:",
+            "        self.logger.debug(",
+            "            f\"{self.__class__.__name__}.terminate({self.status} -> {new_status})\"",
+            "        )"
+        ],
+        "description": "behavior for py-trees"
+    },
+    "pubsub": {
+        "prefix":[
+            "pubsub",
+            "minimal_pubsub"
+        ],
+        "body":[
+            "import rclpy",
+            "from rclpy.node import Node",
+            "",
+            "from ${1:std_msgs}.msg import ${2:String}",
+            "",
+            "",
+            "class ${3:MinimalPubSub}(Node):",
+            "",
+            "    def __init__(self):",
+            "        super().__init__('${4:minimal_pubsub}')",
+            "        self.publisher_ = self.create_publisher($2, '${5:topic_b}', 10)",
+            "        self.subscription = self.create_subscription(",
+            "            $2, '${6:topic_a}', self.listener_callback, 10",
+            "        )",
+            "",
+            "    def listener_callback(self, msg: $2):",
+            "        self.get_logger().info(f'Received: {msg}')",
+            "        out = $2()",
+            "        ${0:out.data = msg.data}",
+            "        self.publisher_.publish(out)",
+            "",
+            "",
+            "def main(args=None):",
+            "    rclpy.init(args=args)",
+            "",
+            "    node = $3()",
+            "",
+            "    try:",
+            "        rclpy.spin(node)",
+            "    except KeyboardInterrupt:",
+            "        pass",
+            "    finally:",
+            "        node.destroy_node()",
+            "        if rclpy.ok():",
+            "            rclpy.shutdown()",
+            "",
+            "",
+            "if __name__ == '__main__':",
+            "    main()"
+        ],
+        "description": "simple node that subscribes to topic A and then publishes to topic B"
+    }
+}
