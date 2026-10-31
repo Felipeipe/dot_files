@@ -10,11 +10,11 @@
             "",
             "    def setup(self, **kwargs) -> None:",
             "        self.logger.debug(f\"{self.__class__.__name__}.setup()\")",
-            "        ${3:pass}",
+            "        ${3}",
             "",
             "    def initialise(self) -> None:",
             "        self.logger.debug(f\"{self.__class__.__name__}.initialise()\")",
-            "        ${4:pass}",
+            "        ${4}",
             "",
             "    def update(self) -> py_trees.common.Status:",
             "        self.logger.debug(f\"{self.__class__.__name__}.update()\")",
@@ -74,5 +74,42 @@
             "    main()"
         ],
         "description": "simple node that subscribes to topic A and then publishes to topic B"
+    },
+    "selector_py_trees":{
+        "prefix":[
+            "selector"
+        ],
+        "body":[
+            "${1:selector} = py_trees.composites.Selector(",
+            "    name=\"${2:Selector}\",",
+            "    memory=${3:False},",
+            ")$0"
+        ],
+        "description": "Snippet that inserts selector"
+    },
+    "sequential":{
+        "prefix":[
+            "sequential"
+        ],
+        "body":[
+            "${1:sequence} = py_trees.composites.Sequence(",
+            "    name=\"${2:Sequence}\",",
+            "    memory=${3:True},",
+            ")$0"
+        ],
+        "description": "Snippet that inserts sequential"
+    },
+    "retry":{
+        "prefix":[
+            "retry"
+        ],
+        "body":[
+            "${1:retry} = py_trees.decorators.Retry(",
+            "    name=\"${2:Retry}\",",
+            "    child=${3:child},",
+            "    num_failures=${4:3},",
+            ")$0"
+        ],
+        "description": "Snippet that inserts a retry decorator"
     }
 }
