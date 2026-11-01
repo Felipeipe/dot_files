@@ -90,6 +90,16 @@
     ],
     "latex": [
       "*.tex"
+    ],
+    "Shell Script": [
+        "dot-zshrc",
+        "dot-bash_aliases"
+    ],
+    "Git Config": [
+        "dot-gitconfig"
+    ],
+    "tmux": [
+        "dot-tmux.conf"
     ]
   },
   "languages": {
