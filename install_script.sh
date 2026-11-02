@@ -1,14 +1,20 @@
 #!/bin/bash
 
 INSTALL_ALL=false
+SKIP_DOCKER=false
 
-while getopts "I" opt; do
+while getopts "ID" opt; do
   case ${opt} in
     I )
       INSTALL_ALL=true
       ;;
+    D )
+      SKIP_DOCKER=true
+      ;;
     \? )
-      echo "Usage: $0 [-I]"
+      echo "Usage: $0 [-I] [-D]"
+      echo "  -I  Run the full system installation"
+      echo "  -D  Skip Docker installation (with -I)"
       exit 1
       ;;
   esac
@@ -39,15 +45,18 @@ if [ "$INSTALL_ALL" = true ]; then
                 openssh-server \
                 openssh-client
 
-            sudo apt remove -y $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc 2>/dev/null | cut -f1) 2>/dev/null || true
+            if [ "$SKIP_DOCKER" = true ]; then
+                echo "Skipping Docker installation..."
+            else
+                sudo apt remove -y $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc 2>/dev/null | cut -f1) 2>/dev/null || true
 
-            sudo apt update
-            sudo apt install -y ca-certificates curl
-            sudo install -m 0755 -d /etc/apt/keyrings
-            sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-            sudo chmod a+r /etc/apt/keyrings/docker.asc
+                sudo apt update
+                sudo apt install -y ca-certificates curl
+                sudo install -m 0755 -d /etc/apt/keyrings
+                sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+                sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-            sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+                sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
 Types: deb
 URIs: https://download.docker.com/linux/ubuntu
 Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
@@ -56,12 +65,13 @@ Architectures: $(dpkg --print-architecture)
 Signed-By: /etc/apt/keyrings/docker.asc
 EOF
 
-            sudo apt update
-            sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-            sudo systemctl start docker
+                sudo apt update
+                sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+                sudo systemctl start docker
 
-            sudo groupadd -f docker
-            sudo usermod -aG docker $USER
+                sudo groupadd -f docker
+                sudo usermod -aG docker $USER
+            fi
 
             RUNZSH=no CHSH=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
@@ -73,6 +83,8 @@ EOF
             sudo dpkg -i delta.deb
             rm delta.deb
 
+            curl -f https://zed.dev/install.sh | sh
+
             rm -f ~/.zshrc
 
             echo "Package installation complete."
@@ -82,6 +94,15 @@ EOF
             ;;
     esac
 fi
+
+if ! command -v stow >/dev/null 2>&1; then
+    echo "Warning: stow is not installed, so the dotfiles can't be applied."
+    echo "Install it with 'sudo apt install stow' or run '$0 -I' for the full installation."
+    exit 1
+fi
+
+# Without this, stow links all of ~/.config to the repo when it doesn't exist yet
+mkdir -p ~/.config
 
 stow -v --dotfiles --ignore='.*\.sh$' .
 

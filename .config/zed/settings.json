@@ -112,6 +112,22 @@
       "hard_tabs": false
     }
   },
+  "auto_install_extensions": {
+    "csv": true,
+    "dockerfile": true,
+    "git-firefly": true,
+    "high-contrast-themes": true,
+    "html": true,
+    "latex": true,
+    "material-icon-theme": true,
+    "neocmake": true,
+    "python-requirements": true,
+    "scheme": true,
+    "tmux": true,
+    "toml": true,
+    "windows-batch": true,
+    "xml": true
+  },
   "soft_wrap": "editor_width",
   "icon_theme": {
     "mode": "dark",

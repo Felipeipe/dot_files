@@ -3,7 +3,7 @@ command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
 set t_Co=256
 set notermguicolors
-set background=dark 
+set background=dark
 colorscheme default
 
 filetype plugin indent on

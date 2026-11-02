@@ -109,7 +109,6 @@ fi
 
 export COMPOSE_BAKE=true
 export LOCAL_NOTEBOOK_DEV=1
-eval "$(zoxide init --cmd cd zsh)"
 
 if [[ "$(which python3)" != "/usr/bin/python3" ]]; then
   if type deactivate > /dev/null 2>&1; then
@@ -121,3 +120,6 @@ export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus"
 
 # aliases and functions. it's used as is if this repo is used on a path without zsh installed.
 source ~/.bash_aliases
+
+# zoxide must be initialized last
+eval "$(zoxide init --cmd cd zsh)"
