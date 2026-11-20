@@ -24,3 +24,7 @@
 	gpgsign = true
 [tag]
 	gpgsign = true
+[pull]
+	rebase = false
+[push]
+    autoSetupRemote = true
